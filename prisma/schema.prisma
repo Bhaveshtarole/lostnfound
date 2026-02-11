@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  phone         String?
+  passwordHash  String?
+  isAdmin       Boolean  @default(false)
+  finderPoints  Int      @default(0)
+  telegramChatId String? // Added for Telegram integration
+  resetToken       String?   @unique // For password reset
+  resetTokenExpiry DateTime? // For password reset expiry
+  createdAt     DateTime @default(now())
+  
+  reports       Report[]
+  claims        Claim[]
+  notifications AppNotification[]
+}
+
+model Item {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  description String
+  imagePath   String?
+  color       String?
+  brand       String?
+  createdAt   DateTime @default(now())
+
+  reports     Report[]
+}
+
+model Report {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  itemId    Int
+  status    String   // 'lost' or 'found'
+  location  String
+  date      String
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id])
+  item      Item     @relation(fields: [itemId], references: [id])
+  claims    Claim[]
+}
+
+model Claim {
+  id        Int      @id @default(autoincrement())
+  claimerId  Int
+  foundReportId Int
+  proofDescription String
+  status    String   // 'pending', 'approved', 'rejected'
+  createdAt DateTime @default(now())
+  processedAt DateTime?
+
+  claimer    User   @relation(fields: [claimerId], references: [id])
+  foundReport Report @relation(fields: [foundReportId], references: [id])
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  activity  String
+  timestamp DateTime @default(now())
+}
+
+model AppNotification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  message   String
+  type      String   // 'claim', 'match', 'system'
+  read      Boolean  @default(false)
+  link      String?  // Optional URL to redirect to
+  createdAt DateTime @default(now())
+}
