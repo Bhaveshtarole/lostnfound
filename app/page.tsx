@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { Search, MapPin, User, Calendar, ArrowRight, ShieldCheck, Award } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 // Mock data for initial UI dev (fallback if DB not connected)
 const mockStats = { lost: 12, found: 8, claimed: 5, returned: 3 };
 

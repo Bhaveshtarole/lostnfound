@@ -4,6 +4,8 @@ import { Link as LinkIcon, ArrowRight, CheckCircle, Clock, MapPin, Calendar } fr
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Matching() {
     // Fetch all active lost and found reports
     const lostReports = await prisma.report.findMany({
