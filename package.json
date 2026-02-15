@@ -12,6 +12,7 @@
     "@prisma/client": "^5.10.2",
     "@supabase/supabase-js": "^2.95.3",
     "@types/bcryptjs": "^2.4.6",
+    "@vercel/blob": "^2.2.0",
     "bcryptjs": "^3.0.3",
     "caniuse-lite": "^1.0.30001767",
     "next": "16.1.6",

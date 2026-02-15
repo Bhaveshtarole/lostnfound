@@ -1,10 +1,16 @@
 
 const { PrismaClient } = require('@prisma/client');
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+    datasources: {
+        db: {
+            url: process.env.DIRECT_URL || process.env.DATABASE_URL
+        }
+    }
+});
 
 async function main() {
-    const email = 'bhaveshtarole@989.gmail.com';
+    const email = 'bhaveshtarole989@gmail.com';
 
     console.log(`Looking for user with email: ${email}...`);
 
