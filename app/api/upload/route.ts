@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         // Upload to Supabase Storage
         const { data: uploadData, error } = await supabase
             .storage
-            .from('images')
+            .from('item-images')
             .upload(filename, buffer, {
                 contentType: file.type,
                 upsert: false
@@ -34,12 +34,13 @@ export async function POST(request: NextRequest) {
         // Get Public URL
         const { data: publicUrlData } = supabase
             .storage
-            .from('images')
+            .from('item-images')
             .getPublicUrl(filename);
 
         return NextResponse.json({ success: true, path: publicUrlData.publicUrl });
     } catch (error) {
-        console.error('Upload error:', error);
-        return NextResponse.json({ success: false, error: 'Upload failed' }, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Upload error:', errorMessage);
+        return NextResponse.json({ success: false, error: 'Upload failed: ' + errorMessage }, { status: 500 });
     }
 }
