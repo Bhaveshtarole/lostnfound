@@ -85,7 +85,6 @@ export default function ReportLost() {
             const result = await submitReport(reportData);
 
             if (result.success) {
-                alert("Report submitted successfully!");
                 router.push('/');
             } else {
                 alert("Failed to submit report. Please try again.");
