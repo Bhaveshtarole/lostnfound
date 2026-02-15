@@ -93,7 +93,7 @@ export default function ItemDetails() {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center text-gray-500">
                 <h2 className="text-2xl font-bold mb-4">Item not found</h2>
-                <Link href="/search" className="text-blue-600 hover:underline">Back to Search</Link>
+                <Link href="/" className="text-blue-600 hover:underline">Back to Home</Link>
             </div>
         );
     }
@@ -109,8 +109,8 @@ export default function ItemDetails() {
 
     return (
         <div className="container mx-auto px-4 py-12 relative">
-            <Link href="/search" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Search
+            <Link href="/" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-6 transition-colors">
+                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

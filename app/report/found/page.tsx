@@ -85,6 +85,7 @@ export default function ReportFound() {
             const result = await submitReport(reportData);
 
             if (result.success) {
+                alert("✅ Report submitted successfully! Thank you for your honesty.");
                 router.push('/');
             } else {
                 alert("Failed to submit report. Please try again.");
